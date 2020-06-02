@@ -62,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void setupPlayControls() {
+     class RollerListener implements OnClickListener {
+
+      @Override
+      public void onClick(View v) {
+        Roll roll = new Roll(rng);
+        // TODO display dice images.
+      }
+    }
+
     roller = findViewById(R.id.roller);
     // TODO find and wire up dice image vie
     //  w objects
@@ -83,13 +92,5 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  private class RollerListener implements OnClickListener {
-
-      @Override
-      public void onClick(View v) {
-        Roll roll = new Roll(rng);
-        // TODO display dice images.
-      }
-    }
 
   }
