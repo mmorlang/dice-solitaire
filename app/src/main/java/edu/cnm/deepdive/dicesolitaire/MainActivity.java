@@ -82,12 +82,9 @@ public class MainActivity extends AppCompatActivity {
       int id = res.getIdentifier(idString, "drawable", getPackageName());
       diceFaces[i] = getDrawable(id);
     }
-    roller.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        roller.setEnabled(false);
-        new DiceAnimator().start();
-      }
+    roller.setOnClickListener((v) -> {
+      roller.setEnabled(false);
+      new DiceAnimator().start();
     });
   }
 
@@ -117,34 +114,23 @@ public class MainActivity extends AppCompatActivity {
       Roll roll = new Roll(rng);
       for (int i = 0; i < Roll.NUM_DICE; i++) {
         final int dieIndex = i;
-        for (int j = 0; j < 5; j++) {
-          int animationFace = rng.nextInt(NUM_FACES);
+        for (int j = 0; j < 10; j++) {
+          int animationFace = rng.nextInt(Roll.NUM_FACES);
           displayFace(dieIndex, animationFace + 1);
           try {
-            sleep(20);
+            sleep(50);
           } catch (InterruptedException expected) {
-            // Ignore exception
+            // Ignore exception and get on with life.
           }
         }
         final int value = roll.getDice()[i];
         displayFace(dieIndex, value);
       }
-      runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-          roller.setEnabled(true);
-        }
-      });
-
+      runOnUiThread(() -> roller.setEnabled(true));
     }
 
     private void displayFace(final int dieIndex, final int value) {
-      runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-          displayDiceFace(dieIndex, value - 1);
-        }
-      });
+      runOnUiThread(() -> displayDiceFace(dieIndex, value - 1));
     }
 
   }
